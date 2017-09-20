@@ -8,7 +8,7 @@ public class Test {
 	
 	@RequestMapping("test")
 	public void test() {
-		System.out.println(111222);
+		System.out.println(111222333);
 	}
 
 }
