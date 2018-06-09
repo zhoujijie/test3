@@ -1,14 +1,26 @@
 package com.test.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Component;
 
-@Controller
-public class Test {
+import com.alibaba.fastjson.JSONObject;
+
+/**
+ */
+@Component("Test")
+public class Test extends AbstractTest{
 	
-	@RequestMapping("test")
-	public void test() {
-		System.out.println(111222333);
+	private static JSONObject json = new JSONObject();
+	
+	
+	public void test(JSONObject json) {
+		json.put("a", "123");
+		System.out.println(json);
+		json.clear();
+		System.out.println(json);
 	}
-
+	
+	public static void main(String[] args) {
+		Test t = new Test();
+		t.test(json);
+	}
 }
