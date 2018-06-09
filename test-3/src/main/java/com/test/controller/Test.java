@@ -15,7 +15,7 @@ public class Test extends AbstractTest{
 	public void test(JSONObject json) {
 		json.put("a", "123");
 		System.out.println(json);
-		json.clear();
+		json.clear();   
 		System.out.println(json);
 	}
 	
