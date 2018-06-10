@@ -14,30 +14,56 @@
 
 	<!-- 激活组件扫描功能,在包com.hyq.aop及其子包下面自动扫描通过注解配置的组件 -->
 	<context:component-scan base-package="com.test.controller" />
-	
+
 	<!-- 添加注解驱动，register-defaults="false"（默认注册，true的话会使用spring默认的配置）必须为false，否则ref下的bean不生效 -->
-	 <mvc:annotation-driven>  
-        <mvc:message-converters register-defaults="false">  
-            <ref bean="stringHttpMessageConverter" />  
-        </mvc:message-converters>  
-    </mvc:annotation-driven> 
-    
-      <!--避免出现乱码 -->  
-    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">  
-        <property name="supportedMediaTypes">  
-            <list>  
-                <value>text/plain;charset=UTF-8</value>  
-            </list>  
-        </property>  
-    </bean>  
-    
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			<ref bean="stringHttpMessageConverter" />
+			<ref bean="fastJsonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- String转化器 -->
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- JSON转化器(fastjson版本) -->
+	<bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+		<property name="supportedMediaTypes">
+			<list>
+				<!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="fastJsonConfig">
+			<bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+				<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+				<property name="serializerFeatures">
+					<array>
+						<!--此配置用于将Date类型转化为dateFormat对应的格式 -->
+						<value>WriteDateUseDateFormat</value>
+					</array>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
 	<!-- 激活自动代理功能 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.test.controller" />
 
-	
+
 	<!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -18,22 +18,21 @@ public class MyController {
 	
 	@RequestMapping("/Httptest")
 	@ResponseBody
-	public String Httptest() {
+	public JSONObject Httptest() {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("code", 1);
 		jsonObject.put("msg", "成功");
 		System.out.println("Httptest");
-		return jsonObject.toJSONString();
+		return jsonObject;
 	}
 	
-	@RequestMapping(value="/Httptest1", produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/Httptest1")
 	@ResponseBody
-	public String Httptest1(String name) {
+	public String Httptest1(@RequestBody String name) {
 		System.out.println(name);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("code", 1);
 		jsonObject.put("msg", "成功");
-		System.out.println("Httptest");
 		return "中文测试";
 	}
 }
