@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+   <!-- 配置别名：批量扫描,如果类名上有注解，则使用注解指定的名称作为别名，
+        如果没有则使用类名首字母小写作为别名,注解为@Alias(value="xxx")   -->
+   <typeAliases>
+      <package name="com.test.bean"/>
+   </typeAliases>
+   
+</configuration>
