@@ -1,5 +1,8 @@
 package com.test.controller;
 
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
@@ -20,7 +23,9 @@ public class Test extends AbstractTest{
 	}
 	
 	public static void main(String[] args) {
-		Test t = new Test();
-		t.test(json);
+//		Test t = new Test();
+//		t.test(json);
+		ThreadLocal<JSONObject> jsonThread = new ThreadLocal();
+		jsonThread.set(new JSONObject());
 	}
 }

@@ -13,5 +13,9 @@ public class Father {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public void run() {
+		
+	}
 
 }
