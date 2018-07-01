@@ -50,8 +50,7 @@ function update(data,n) {
 		bar.append("text")
 		   .text(function(d) { return d; });
 	} else {
-		bar.selectAll("rect").data().transition()
-		   .duration(1500).attr("width",function(d){return d;});
+		bar.select("rect").data(data).transition().duration(500).attr("width",function(d){return d;});
 	}
 	
 
@@ -60,13 +59,23 @@ update(data,0);
 
 
 d3.interval(function() {
-		var j = Math.random() * 40; 
+		var j = Math.random() + 2; 
 		var zz = [];
 		for (var i = 0;i<data.length;i++) {
-			data[i] = data[i] + 20;
+			data[i] = data[i] + (Math.random() + 2 ) * 20;
 		}
 		update(data,1);
-	}, 1500);
+	});
+	
+d3.json("http://localhost:8080/myproject/d3/getJson",
+	    function handle_json_data(data){
+	        console.log(data)
+	        console.log(data.results[0]);
+	        var series=data.results[0].series;
+	        var contents=series[0];
+	        var values=contents.values
+	        console.log(values);
+	    });	
 
 </script>
 </html>

@@ -11,8 +11,25 @@
 		  		AND id = #{id}
            </if>
       </where>
-      
    </select> 
    
+   <select id="getTestList" resultType="Test" parameterType="map">
+      SELECT *
+      FROM t_test
+      <where>
+           <if test="id != null">
+		  		AND id = #{id}
+           </if>
+      </where>
+   </select> 
+   
+   
+   <!--添加地址信息 -->
+   <insert id="save" parameterType="Test">
+      insert into t_test
+      (id,name,age) 
+      values
+      (#{id},#{name},#{age})
+   </insert>
    
 </mapper>
